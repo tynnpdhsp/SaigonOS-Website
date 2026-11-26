@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: Apache-2.0
+node_modules/
+build/
+generated/
+.docusaurus/
+.cache-loader/
+npm-debug.log*
+.vscode/
+.idea/
+.DS_Store
