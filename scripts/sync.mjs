@@ -30,8 +30,21 @@ function dropLicenseLine(text) {
 
 function section(text, title) {
   const part = text.split(/^## /m).find((candidate) => candidate.startsWith(`${title}\n`));
-  if (!part) throw new Error(`README.md của kho lõi không có mục "${title}"`);
+  if (!part) throw new Error(`README.md của repo SaigonOS không có mục "${title}"`);
   return part;
+}
+
+function linkParts(line) {
+  return line
+    .split(/(\[[^\]]+\]\([^)]+\))/)
+    .filter(Boolean)
+    .map((part) => {
+      const doc = part.match(/^\[([^\]]+)\]\(docs\/([^)#]+)\.md(#[^)]*)?\)$/);
+      const web = part.match(/^\[([^\]]+)\]\((https?:[^)]+)\)$/);
+      if (doc) return { text: doc[1], to: `/docs/${doc[2]}${doc[3] ?? ""}` };
+      if (web) return { text: web[1], href: web[2] };
+      return { text: part };
+    });
 }
 
 function escapeMdx(text) {
@@ -125,12 +138,13 @@ try {
   const read = (path) => dropLicenseLine(readFileSync(join(source, path), "utf8"));
   const readme = read("README.md");
   const list = releases(read("CHANGELOG.md"));
-  if (!list.length) throw new Error("CHANGELOG.md của kho lõi chưa có bản phát hành nào");
+  if (!list.length) throw new Error("CHANGELOG.md của repo SaigonOS chưa có bản phát hành nào");
   const intro = readme.split("\n").find((line) => /^\p{L}/u.test(line));
   const install = section(readme, "Cài đặt").match(/```bash\n([\s\S]*?)```/)?.[1].trim();
-  if (!intro || !install) throw new Error("README.md của kho lõi thiếu đoạn giới thiệu hoặc lệnh cài đặt");
-  const components = section(readme, "Thành phần")
-    .split("\n")
+  if (!intro || !install) throw new Error("README.md của repo SaigonOS thiếu đoạn giới thiệu hoặc lệnh cài đặt");
+  const parts = section(readme, "Thành phần").split("\n").slice(1);
+  const diagramNote = parts.find((line) => /^\p{L}/u.test(line));
+  const components = parts
     .filter((line) => line.startsWith("|"))
     .slice(2)
     .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
@@ -146,6 +160,7 @@ try {
     date: latest.date,
     intro,
     install,
+    diagramNote: diagramNote ? linkParts(diagramNote) : [],
     components,
     releases: list.map(({ version, date, slug }) => ({ version, date, slug })),
   };

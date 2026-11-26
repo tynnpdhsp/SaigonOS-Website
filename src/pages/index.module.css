@@ -87,6 +87,7 @@
 }
 
 .features {
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2.5rem 3rem;
@@ -102,8 +103,18 @@
   margin-bottom: 0.5rem;
 }
 
-.feature a {
-  font-weight: 600;
+.feature h3 a {
+  color: var(--ifm-heading-color);
+}
+
+.feature h3 a:hover {
+  color: var(--ifm-color-primary);
+}
+
+.caption {
+  margin: 1rem 0 0;
+  color: var(--saigonos-muted);
+  text-align: justify;
 }
 
 .icon {

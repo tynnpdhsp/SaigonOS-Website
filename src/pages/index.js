@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
+import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import CodeBlock from "@theme/CodeBlock";
@@ -7,12 +8,14 @@ import core from "@site/generated/core.json";
 import styles from "./index.module.css";
 
 const repo = "https://github.com/tynnpdhsp/SaigonOS";
+const tagline = "Một lõi chung cho các ứng dụng chuyển đổi số";
+const pageTitle = `SaigonOS - ${tagline}`;
 const vietnameseDate = (date) => date.split("-").reverse().join("/");
 
 const features = [
   {
     title: "Đăng nhập một lần",
-    text: "Người dùng đăng nhập bằng Keycloak một lần cho mọi ứng dụng. Tài khoản quản trị dùng thêm mã OTP.",
+    text: "Người dùng đăng nhập bằng Keycloak một lần cho mọi ứng dụng. Tài khoản quản trị của realm saigonos dùng thêm mã OTP.",
     to: "/docs/apps/login",
     icon: (
       <>
@@ -23,7 +26,7 @@ const features = [
   },
   {
     title: "API Gateway",
-    text: "APISIX kiểm tra access token và luật truy cập viết cho Open Policy Agent. Tường lửa Coraza chặn các lời gọi có dấu hiệu tấn công.",
+    text: "APISIX kiểm tra access token và hỏi Open Policy Agent trước khi cho lời gọi đi qua. Tường lửa Coraza chặn các lời gọi có dấu hiệu tấn công.",
     to: "/docs/admin/access-rules",
     icon: (
       <>
@@ -34,13 +37,35 @@ const features = [
   },
   {
     title: "Dữ liệu và REST API",
-    text: "PostgREST tạo REST API từ các bảng PostgreSQL. Row-Level Security kiểm tra quyền trên từng dòng. Audit log ghi lại từng thay đổi của các bảng được chọn.",
+    text: "PostgREST tạo REST API từ schema của từng ứng dụng trong PostgreSQL. Row-Level Security kiểm tra quyền trên từng dòng. Audit log ghi lại thay đổi của các bảng được chọn.",
     to: "/docs/apps/database",
     icon: (
       <>
         <ellipse cx="12" cy="5.5" rx="7.5" ry="2.5" />
         <path d="M4.5 5.5v13c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-13" />
         <path d="M4.5 12c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5" />
+      </>
+    ),
+  },
+  {
+    title: "Tìm kiếm toàn văn",
+    text: "Ứng dụng khai trong bản khai các bảng và cột cần tìm. Chữ cần tìm gõ có dấu hay không dấu đều được.",
+    to: "/docs/apps/search",
+    icon: (
+      <>
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="M15.5 15.5 21 21" />
+      </>
+    ),
+  },
+  {
+    title: "Lưu trữ và hồ dữ liệu",
+    text: "Dòng cũ của các bảng đã khai được chuyển xuống hồ dữ liệu, gồm các file Parquet trên SeaweedFS. Số liệu được chốt theo tháng. Người quản trị truy vấn hồ bằng SQL của DuckDB.",
+    to: "/docs/admin/data-lake",
+    icon: (
+      <>
+        <rect x="3" y="4" width="18" height="5" rx="1" />
+        <path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4" />
       </>
     ),
   },
@@ -79,12 +104,40 @@ const features = [
       </>
     ),
   },
+  {
+    title: "Giám sát",
+    text: "Prometheus thu metrics và Loki lưu log của các container. Grafana hiển thị cả hai. Giám sát mặc định tắt.",
+    to: "/docs/admin/monitoring",
+    icon: <path d="M3 12h4l3-7 4 14 3-7h4" />,
+  },
 ];
 
 export default function Home() {
   const [latest] = core.releases;
   return (
-    <Layout title="Một lõi chung cho các ứng dụng chuyển đổi số" description={core.intro}>
+    <Layout description={core.intro}>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta property="og:title" content={pageTitle} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              { "@type": "WebSite", name: "SaigonOS", url: "https://www.saigonos.org/", inLanguage: "vi" },
+              {
+                "@type": "SoftwareSourceCode",
+                name: "SaigonOS",
+                description: core.intro,
+                url: "https://www.saigonos.org/",
+                codeRepository: repo,
+                license: "https://www.apache.org/licenses/LICENSE-2.0",
+                programmingLanguage: "Python",
+                version: core.version,
+              },
+            ],
+          })}
+        </script>
+      </Head>
       <main>
         <section className={styles.hero}>
           <div className={`container ${styles.heroGrid}`}>
@@ -92,7 +145,7 @@ export default function Home() {
               <Link className={styles.badge} to={`/news/${latest.slug}`}>
                 Phiên bản {core.version}, phát hành ngày {vietnameseDate(core.date)}
               </Link>
-              <h1 className={styles.title}>Một lõi chung cho các ứng&nbsp;dụng chuyển&nbsp;đổi&nbsp;số</h1>
+              <h1 className={styles.title}>{tagline.replace(/ (dụng|đổi|số)/g, " $1")}</h1>
               <p className={styles.lead}>{core.intro.replaceAll("-", "‑")}</p>
               <div className={styles.actions}>
                 <Link className="button button--primary button--lg" to="/docs/install">
@@ -117,7 +170,6 @@ export default function Home() {
         <section className={styles.section}>
           <div className="container">
             <h2 className={styles.heading}>Chức năng của lõi</h2>
-            <p className={styles.subtitle}>Các ứng dụng dùng chung những chức năng này và chỉ viết phần nghiệp vụ, giao diện.</p>
             <div className={styles.features}>
               {features.map((feature) => (
                 <div key={feature.title} className={styles.feature}>
@@ -133,9 +185,10 @@ export default function Home() {
                   >
                     {feature.icon}
                   </svg>
-                  <h3>{feature.title}</h3>
+                  <h3>
+                    <Link to={feature.to}>{feature.title}</Link>
+                  </h3>
                   <p>{feature.text}</p>
-                  <Link to={feature.to}>Xem tài liệu</Link>
                 </div>
               ))}
             </div>
@@ -149,6 +202,19 @@ export default function Home() {
             <div className={styles.panel}>
               <img className={styles.diagram} src={useBaseUrl("/assets/architecture.svg")} alt="Sơ đồ kiến trúc của SaigonOS" />
             </div>
+            {core.diagramNote.length > 0 && (
+              <p className={styles.caption}>
+                {core.diagramNote.map((part, index) =>
+                  part.to || part.href ? (
+                    <Link key={index} to={part.to} href={part.href}>
+                      {part.text}
+                    </Link>
+                  ) : (
+                    <span key={index}>{part.text}</span>
+                  ),
+                )}
+              </p>
+            )}
           </div>
         </section>
 
