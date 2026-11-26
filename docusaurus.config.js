@@ -4,7 +4,7 @@ import { themes } from "prism-react-renderer";
 
 const core = JSON.parse(readFileSync("generated/core.json", "utf8"));
 const repo = "https://github.com/tynnpdhsp/SaigonOS";
-const baseUrl = "/SaigonOS-Website/";
+const baseUrl = "/";
 const copyright = "Bản quyền © 2026 SaigonOS contributors. Mã nguồn được phát hành theo giấy phép Apache-2.0.";
 const rank = new Map(core.releases.map((release, index) => [release.slug, index]));
 
@@ -12,7 +12,7 @@ export default {
   title: "SaigonOS",
   tagline: "Phần lõi nguồn mở của một hệ điều hành chuyển đổi số",
   favicon: "assets/logo/favicon.ico",
-  url: "https://tynnpdhsp.github.io",
+  url: "https://www.saigonos.org",
   baseUrl,
   trailingSlash: false,
   onBrokenLinks: "throw",
