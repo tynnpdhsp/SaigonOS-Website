@@ -19,7 +19,7 @@ export default {
   onBrokenAnchors: "throw",
   markdown: { hooks: { onBrokenMarkdownLinks: "throw", onBrokenMarkdownImages: "throw" } },
   i18n: { defaultLocale: "vi", locales: ["vi"] },
-  staticDirectories: ["generated/static"],
+  staticDirectories: ["static", "generated/static"],
   headTags: [
     { tagName: "link", attributes: { rel: "apple-touch-icon", href: `${baseUrl}assets/logo/apple-touch-icon.png` } },
   ],
@@ -48,6 +48,7 @@ export default {
             ),
         },
         theme: { customCss: "./src/css/custom.css" },
+        sitemap: { ignorePatterns: ["/search", "/news/archive", "/news/page/**"] },
       },
     ],
   ],
@@ -67,6 +68,14 @@ export default {
   ],
   themeConfig: {
     image: "assets/logo/social-preview.png",
+    metadata: [
+      {
+        name: "keywords",
+        content: "SaigonOS, DX-OS, chuyển đổi số, mã nguồn mở, Keycloak, APISIX, PostgreSQL, PostgREST, Operaton, SeaweedFS",
+      },
+      { property: "og:site_name", content: "SaigonOS" },
+      { property: "og:locale", content: "vi_VN" },
+    ],
     colorMode: { defaultMode: "light", disableSwitch: true, respectPrefersColorScheme: false },
     navbar: {
       logo: { alt: "SaigonOS", src: "assets/logo/saigonos-logo-text.svg" },

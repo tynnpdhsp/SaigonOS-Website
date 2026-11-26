@@ -119,6 +119,24 @@ export default function Home() {
       <Head>
         <title>{pageTitle}</title>
         <meta property="og:title" content={pageTitle} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              { "@type": "WebSite", name: "SaigonOS", url: "https://www.saigonos.org/", inLanguage: "vi" },
+              {
+                "@type": "SoftwareSourceCode",
+                name: "SaigonOS",
+                description: core.intro,
+                url: "https://www.saigonos.org/",
+                codeRepository: repo,
+                license: "https://www.apache.org/licenses/LICENSE-2.0",
+                programmingLanguage: "Python",
+                version: core.version,
+              },
+            ],
+          })}
+        </script>
       </Head>
       <main>
         <section className={styles.hero}>
