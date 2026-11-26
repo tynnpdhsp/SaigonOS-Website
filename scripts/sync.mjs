@@ -30,7 +30,7 @@ function dropLicenseLine(text) {
 
 function section(text, title) {
   const part = text.split(/^## /m).find((candidate) => candidate.startsWith(`${title}\n`));
-  if (!part) throw new Error(`README.md của kho lõi không có mục "${title}"`);
+  if (!part) throw new Error(`README.md của repo SaigonOS không có mục "${title}"`);
   return part;
 }
 
@@ -138,10 +138,10 @@ try {
   const read = (path) => dropLicenseLine(readFileSync(join(source, path), "utf8"));
   const readme = read("README.md");
   const list = releases(read("CHANGELOG.md"));
-  if (!list.length) throw new Error("CHANGELOG.md của kho lõi chưa có bản phát hành nào");
+  if (!list.length) throw new Error("CHANGELOG.md của repo SaigonOS chưa có bản phát hành nào");
   const intro = readme.split("\n").find((line) => /^\p{L}/u.test(line));
   const install = section(readme, "Cài đặt").match(/```bash\n([\s\S]*?)```/)?.[1].trim();
-  if (!intro || !install) throw new Error("README.md của kho lõi thiếu đoạn giới thiệu hoặc lệnh cài đặt");
+  if (!intro || !install) throw new Error("README.md của repo SaigonOS thiếu đoạn giới thiệu hoặc lệnh cài đặt");
   const parts = section(readme, "Thành phần").split("\n").slice(1);
   const diagramNote = parts.find((line) => /^\p{L}/u.test(line));
   const components = parts

@@ -40,7 +40,7 @@ jobs:
           cache: npm
       - name: Cài đặt thư viện từ lock file
         run: npm ci
-      - name: Lấy tài liệu từ kho lõi và dựng trang
+      - name: Lấy tài liệu từ repo SaigonOS và dựng trang
         run: npm run build
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'
