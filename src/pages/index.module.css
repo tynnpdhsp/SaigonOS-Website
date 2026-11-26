@@ -41,6 +41,13 @@
   margin-bottom: 0;
 }
 
+.lead,
+.note,
+.subtitle,
+.feature p {
+  text-align: justify;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

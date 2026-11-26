@@ -92,8 +92,8 @@ export default function Home() {
               <Link className={styles.badge} to={`/news/${latest.slug}`}>
                 Phiên bản {core.version}, phát hành ngày {vietnameseDate(core.date)}
               </Link>
-              <h1 className={styles.title}>Một lõi chung cho các ứng dụng chuyển đổi số</h1>
-              <p className={styles.lead}>{core.intro}</p>
+              <h1 className={styles.title}>Một lõi chung cho các ứng&nbsp;dụng chuyển&nbsp;đổi&nbsp;số</h1>
+              <p className={styles.lead}>{core.intro.replaceAll("-", "‑")}</p>
               <div className={styles.actions}>
                 <Link className="button button--primary button--lg" to="/docs/install">
                   Bắt đầu cài đặt

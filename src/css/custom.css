@@ -29,6 +29,11 @@
   list-style-type: "- ";
 }
 
+.markdown p,
+.markdown li {
+  text-align: justify;
+}
+
 .markdown th {
   text-align: left;
 }
