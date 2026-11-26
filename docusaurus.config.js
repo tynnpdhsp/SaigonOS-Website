@@ -79,6 +79,7 @@ export default {
     },
     footer: {
       style: "light",
+      logo: { alt: "SaigonOS", src: "assets/logo/saigonos-logo-text.svg", height: 40 },
       links: [
         {
           title: "Tài liệu",

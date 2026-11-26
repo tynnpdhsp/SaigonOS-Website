@@ -8,9 +8,9 @@
   --ifm-color-primary-lighter: #058a66;
   --ifm-color-primary-lightest: #059669;
   --ifm-heading-color: #0f294a;
-  --ifm-global-radius: 2px;
-  --ifm-button-border-radius: 2px;
-  --ifm-code-border-radius: 2px;
+  --ifm-global-radius: 6px;
+  --ifm-button-border-radius: 6px;
+  --ifm-code-border-radius: 6px;
   --ifm-global-shadow-lw: none;
   --ifm-global-shadow-md: none;
   --ifm-global-shadow-tl: none;
@@ -48,12 +48,7 @@
 }
 
 .navbar__search-input {
-  border-radius: 2px;
-}
-
-.navbar [class*="dropdownMenu_"],
-.navbar [class*="suggestion_"] {
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 .navbar {
@@ -62,10 +57,4 @@
 
 .footer {
   border-top: 1px solid var(--saigonos-border);
-}
-
-.menu__link,
-.navbar__link,
-.table-of-contents__link {
-  border-radius: 2px;
 }
