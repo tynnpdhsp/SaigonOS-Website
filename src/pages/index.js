@@ -49,7 +49,7 @@ const features = [
   },
   {
     title: "Tìm kiếm toàn văn",
-    text: "Ứng dụng khai trong bản khai các bảng và cột cần tìm. Chữ cần tìm gõ có dấu hay không dấu đều được.",
+    text: "Ứng dụng liệt kê trong bản khai báo các bảng và cột cần tìm. Chữ cần tìm gõ có dấu hay không dấu đều được.",
     to: "/docs/apps/search",
     icon: (
       <>
